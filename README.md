@@ -1,7 +1,7 @@
 # Krypton Wallet / App
 
-This project is using VueJS, Capacitor and Ionic 4
-It allows us to write javascript code once and compile
+This project is using VueJS, Capacitor and Ionic 4.
+It allows to write javascript code once and compile
 as
 
 - standard website code (inside /dist)
