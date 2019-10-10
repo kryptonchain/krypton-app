@@ -20,7 +20,7 @@ npm install
 npm run serve
 ```
 
-### Compiles and minifies for production
+### Compiles and minifies for production (access wallet in /dist)
 
 ```
 npm run build
