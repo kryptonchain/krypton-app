@@ -1,0 +1,7 @@
+{
+  "appId": "com.krypton.privacy",
+  "appName": "Krypton Privacy",
+  "bundledWebRuntime": false,
+  "npmClient": "npm",
+  "webDir": "dist"
+}
