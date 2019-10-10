@@ -44,7 +44,7 @@ npx cap open electron
 npx cap open android
 ```
 
-### Build for linux app (electron)
+### Build for linux app (electron) (--platform linux, win32 or darwin)
 
 ```
 cd electron
