@@ -19,12 +19,12 @@
 
 import { WalletBackend, Daemon } from 'turtlecoin-wallet-backend';
     
-const daemon = new Daemon('explorer.kryptonchain.org', 12888);
+const daemon = new Daemon('localhost', 12888, false, false);
 export default {
   name: 'Wallet',
   data() {
       return {
-          public_address: "not set"
+          public_address: this.getWalletPrimaryAddress()
       }
   },
   methods: {
@@ -32,10 +32,22 @@ export default {
       this.$router.push('/')
     },
     createWallet() {
-        const wallet = WalletBackend.createWallet(daemon);
-        console.log(wallet.getPrimaryAddress());
-        this.public_address = wallet.getPrimaryAddress();
+        this.wallet = WalletBackend.createWallet(daemon);
+        console.log(this.wallet.getPrimaryAddress());
+        this.public_address = this.wallet.getPrimaryAddress();
+        this.syncWallet();
         console.log(daemon);
+    },
+    getWalletPrimaryAddress() {
+        if (this.wallet) {
+            return this.wallet.getPrimaryAddress();
+        }
+        return "not set";
+    },
+    async syncWallet() {
+         /* Start wallet sync process */
+        this.wallet.setLogLevel(0);
+        await this.wallet.start();
     }
   }
 }

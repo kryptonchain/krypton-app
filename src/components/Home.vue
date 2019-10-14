@@ -25,7 +25,7 @@
 
                     <ion-col>
                         <ion-button @click="showDialogAlert" full>Show Alert Box</ion-button>
-                        <ion-button @click="openModal" full>Test modal</ion-button>
+                        <ion-button @click="openModal" full>Create new wallet</ion-button>
                     </ion-col>
                 </ion-row>
             </ion-grid>

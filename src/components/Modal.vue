@@ -2,6 +2,11 @@
   <div>
     <ion-header>
       <ion-toolbar>
+        <ion-buttons slot="start">
+          <ion-button color="dark" @click="closeModal">
+              <ion-icon name="arrow-back"></ion-icon>
+            </ion-button>
+        </ion-buttons>
         <ion-title>{{ title }}</ion-title>
       </ion-toolbar>
     </ion-header>
@@ -22,5 +27,10 @@ export default {
       content: 'Content',
     }
   },
+  methods: {
+    closeModal() {
+      this.$ionic.modalController.dismiss();
+    }
+  }
 }
 </script>
