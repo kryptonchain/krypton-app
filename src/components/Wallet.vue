@@ -10,7 +10,8 @@
 <ion-content padding>
     <ion-button @click="linkTo" full>Home</ion-button>
     <ion-button @click="createWallet" full>Generate Wallet</ion-button>
-    <div> Your wallet address: {{ this.public_address }}</div>
+    <div> Your wallet address: {{ getPrimaryAddress }} </div>
+    <div> Sync status {{ getSyncStatus }} </div>
 </ion-content>
 </ion-app>
 </template>
@@ -18,14 +19,22 @@
 <script>
 
 import { WalletBackend, Daemon } from 'turtlecoin-wallet-backend';
+import { store, mutations } from "./../store";
     
 const daemon = new Daemon('localhost', 12888, false, false);
 export default {
   name: 'Wallet',
   data() {
       return {
-          public_address: this.getWalletPrimaryAddress()
       }
+  },
+  computed: {
+    getPrimaryAddress() {
+      return store.primaryAddress;
+    },
+    getSyncStatus() {
+        return store.syncStatus;
+    }
   },
   methods: {
     linkTo () {
@@ -33,20 +42,26 @@ export default {
     },
     createWallet() {
         this.wallet = WalletBackend.createWallet(daemon);
-        console.log(this.wallet.getPrimaryAddress());
-        this.public_address = this.wallet.getPrimaryAddress();
+        this.setPrimaryAddress();
         this.syncWallet();
+
+        // Attach heightchange listener
+        this.wallet.on('heightchange', (walletBlockCount, localDaemonBlockCount, networkBlockCount) => {
+            mutations.setSyncStatus(`New sync status: ${walletBlockCount} / ${localDaemonBlockCount}`);
+            console.log(`New sync status: ${walletBlockCount} / ${localDaemonBlockCount}`);
+        });
         console.log(daemon);
     },
-    getWalletPrimaryAddress() {
+    setPrimaryAddress() {
         if (this.wallet) {
+            console.log(this.wallet.getPrimaryAddress());
+            mutations.setPrimaryAddress(this.wallet.getPrimaryAddress());
             return this.wallet.getPrimaryAddress();
         }
-        return "not set";
     },
     async syncWallet() {
          /* Start wallet sync process */
-        this.wallet.setLogLevel(0);
+        this.wallet.setLogLevel(1);
         await this.wallet.start();
     }
   }
