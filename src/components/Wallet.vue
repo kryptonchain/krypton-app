@@ -12,6 +12,9 @@
     <ion-button @click="createWallet" full>Generate Wallet</ion-button>
     <div> Your wallet address: {{ getPrimaryAddress }} </div>
     <div> Sync status {{ getSyncStatus }} </div>
+    <div v-for="(incomingTransaction, index) in incomingTransactions">
+        T: {{ incomingTransaction.name }}
+    </div>
 </ion-content>
 </ion-app>
 </template>
@@ -26,6 +29,7 @@ export default {
   name: 'Wallet',
   data() {
       return {
+          incomingTransactions: []
       }
   },
   computed: {
@@ -50,6 +54,13 @@ export default {
             mutations.setSyncStatus(`New sync status: ${walletBlockCount} / ${localDaemonBlockCount}`);
             console.log(`New sync status: ${walletBlockCount} / ${localDaemonBlockCount}`);
         });
+
+        // Attach incoming transactions listener
+        this.wallet.on('incomingtx', (transaction) => {
+            this.addIncomingTransaction(`Incoming transaction of ${transaction.totalAmount()} received!`);
+            console.log(`Incoming transaction of ${transaction.totalAmount()} received!`);
+        });
+
         console.log(daemon);
     },
     setPrimaryAddress() {
@@ -63,6 +74,9 @@ export default {
          /* Start wallet sync process */
         this.wallet.setLogLevel(1);
         await this.wallet.start();
+    },
+    addIncomingTransaction: function (incomingtx) {
+        this.incomingTransactions.push({ name: incomingtx });
     }
   }
 }
