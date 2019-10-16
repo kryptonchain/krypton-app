@@ -1,21 +1,37 @@
 <template>
 <ion-app>
-<ion-header>
-  <ion-toolbar color="primary">
-    <ion-title>
-      Vue Capacitor | About
-    </ion-title>
-  </ion-toolbar>
-</ion-header>
-<ion-content padding>
-    <ion-button @click="linkTo" full>Home</ion-button>
-    <ion-button @click="createWallet" full>Generate Wallet</ion-button>
-    <div> Your wallet address: {{ getPrimaryAddress }} </div>
-    <div> Sync status {{ getSyncStatus }} </div>
-    <div v-for="(incomingTransaction, index) in incomingTransactions">
-        T: {{ incomingTransaction.name }}
-    </div>
-</ion-content>
+    <ion-header>
+    <ion-toolbar color="dark">
+        <ion-title>
+        <img alt="logo" height="40" src="../assets/krypton.png" /> Krypton Wallet | Wallet
+        </ion-title>
+    </ion-toolbar>
+    </ion-header>
+    <ion-content padding>
+        <ion-button color="medium" @click="linkTo" full>Home</ion-button>
+        <ion-button color="dark" @click="createWallet" full>Generate Wallet</ion-button>
+        <div> Your wallet address: {{ getPrimaryAddress }} </div>
+        <div> <ion-icon name="sync"></ion-icon> Sync status {{ getSyncStatus }} </div>
+        <div v-for="(incomingTransaction, index) in incomingTransactions">
+            T: {{ incomingTransaction.name }}
+        </div>
+    </ion-content>
+    <ion-tab-bar>
+        <ion-tab-button tab="schedule" @click="linkTo">
+            <AlertIcon w="40px" h="40px" animate="rotate"/>
+            <ion-label>Home</ion-label>
+        </ion-tab-button>
+
+        <ion-tab-button tab="speakers">
+            <ion-icon name="contacts"></ion-icon>
+            <ion-label>Wallet</ion-label>
+        </ion-tab-button>
+
+        <ion-tab-button tab="about" @click="linkTo">
+            <ion-icon name="information-circle"></ion-icon>
+            <ion-label>About</ion-label>
+        </ion-tab-button>
+    </ion-tab-bar>
 </ion-app>
 </template>
 
@@ -23,6 +39,12 @@
 
 import { WalletBackend, Daemon } from 'turtlecoin-wallet-backend';
 import { store, mutations } from "./../store";
+
+// Importing specific icon sets
+import AlertIcon from "vue-ionicons/dist/ios-alert.vue";
+
+// Using plain css
+require("vue-ionicons/ionicons.css");
     
 const daemon = new Daemon('localhost', 12888, false, false);
 export default {
@@ -31,6 +53,9 @@ export default {
       return {
           incomingTransactions: []
       }
+  },
+  components: {
+    AlertIcon
   },
   computed: {
     getPrimaryAddress() {

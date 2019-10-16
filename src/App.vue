@@ -12,6 +12,6 @@ export default {
 
 <style>
     :root * {
-        --ion-color-primary: #d4cb6f;
+        --ion-background-color: #CCC;
     }
 </style>

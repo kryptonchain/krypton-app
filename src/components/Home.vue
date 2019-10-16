@@ -1,9 +1,9 @@
 <template>
 <ion-app>
 <ion-header>
-  <ion-toolbar color="primary">
+  <ion-toolbar color="dark">
     <ion-title>
-      Krypton Wallet
+      <img alt="logo" height="40" src="../assets/krypton.png" /> Krypton Wallet
     </ion-title>
   </ion-toolbar>
 </ion-header>
@@ -12,7 +12,9 @@
 
     <ion-card>
         <ion-card-header>
-            <ion-card-title>Welcome</ion-card-title>
+            <ion-card-title>
+                Welcome
+            </ion-card-title>
         </ion-card-header>
         <ion-card-content>
 
@@ -20,12 +22,12 @@
             <ion-grid>
                 <ion-row>
                     <ion-col>
-                        <ion-button @click="linkTo" full>Open Existing Wallet</ion-button>    
+                        <ion-button color="medium" @click="linkTo" full>Open Existing Wallet</ion-button>
                     </ion-col>
 
                     <ion-col>
-                        <ion-button @click="showDialogAlert" full>Show Alert Box</ion-button>
-                        <ion-button @click="openModal" full>Create new wallet</ion-button>
+                        <ion-button color="warning" @click="showDialogAlert" full>Show Alert Box</ion-button>
+                        <ion-button color="danger" @click="openModal" full>Create new wallet</ion-button>
                     </ion-col>
                 </ion-row>
             </ion-grid>
