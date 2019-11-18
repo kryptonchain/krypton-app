@@ -14,6 +14,7 @@
     "@ionic/core": "^4.11.0",
     "@modus/ionic-vue": "^1.3.4",
     "core-js": "^2.6.9",
+    "phonegap-nfc": "^1.0.4",
     "turtlecoin-wallet-backend": "git+https://github.com/kryptonchain/krypton-wallet-backend-js.git",
     "vue": "^2.6.10",
     "vue-ionicons": "^3.0.4",
