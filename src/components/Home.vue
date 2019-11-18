@@ -42,7 +42,7 @@
             </ion-row>
             <ion-row v-for="(nfcData, index) in getNfcTags">
               <ion-col> {{ nfcData.uid }} </ion-col>
-              <ion-col>{{ nfcData.data }}</ion-col>
+              <ion-col> {{ nfcData.data }} </ion-col>
             </ion-row>
           </ion-grid>
         </ion-card-content>
